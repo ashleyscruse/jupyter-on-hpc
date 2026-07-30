@@ -52,8 +52,17 @@ idev -p gh-dev -N 1 -n 1 -t 01:00:00 -A YOUR_ALLOCATION
 | `-n 1` | 1 task |
 | `-t 01:00:00` | Time limit (1 hour) |
 | `-A YOUR_ALLOCATION` | Your project allocation code |
+| `-r RESERVATION_NAME` | *(optional)* A reservation you've been given |
 
 > **Don't know your allocation name?** On the login node, run `/usr/local/etc/taccinfo` to see your projects and allocation codes.
+
+> **Using a reservation?** If the facility gave you a reservation (for a workshop or class), add `-r` with its name. Use a lowercase `-r`, and make sure `-p` matches the queue the reservation was created on:
+>
+> ```bash
+> idev -p gh -N 1 -n 1 -t 01:00:00 -A YOUR_ALLOCATION -r RESERVATION_NAME
+> ```
+>
+> If the reservation is on the `gh` queue but you request `gh-dev` (or the reverse), the job fails with `Requested node configuration is not available`. When in doubt, ask whoever gave you the reservation which queue it's on.
 
 Wait for the node to be assigned. Your prompt will change to something like:
 
@@ -163,7 +172,7 @@ Fill in the form on the left side of the dashboard:
 | **Tasks** | `1` |
 | **Job Name** | Anything descriptive |
 | **Time Limit** | `02:00:00` (2 hours max on dev queues) |
-| **Reservation** | Leave blank |
+| **Reservation** | Leave blank, *unless* you were given a reservation name (for a workshop or class) — then enter it here |
 | **VNC Resolution** | Leave blank |
 
 Click **Submit**.
@@ -250,6 +259,7 @@ These install to `$HOME/.local` and persist between sessions.
 |------|---------|
 | SSH in | `ssh user@vista.tacc.utexas.edu` |
 | Request a compute node | `idev -p gh-dev -N 1 -n 1 -t 01:00:00 -A ALLOCATION` |
+| Request a node in a reservation | `idev -p QUEUE -N 1 -n 1 -t 01:00:00 -A ALLOCATION -r RESERVATION` |
 | Load Python | `module load gcc/13.2.0 && module load python3` |
 | Start Jupyter | `jupyter notebook --ip=0.0.0.0 --no-browser` |
 | SSH tunnel (second terminal) | `ssh -N -L 8888:NODE:8888 user@vista.tacc.utexas.edu` |
