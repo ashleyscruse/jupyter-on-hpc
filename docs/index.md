@@ -42,8 +42,10 @@ Enter your password and MFA token when prompted.
 You're on the **login node**. Do not run heavy code here. Request a dedicated compute node using `idev`:
 
 ```bash
-idev -p gh-dev -N 1 -n 1 -t 01:00:00 -A YOUR_ALLOCATION
+idev -p gh-dev -N 1 -n 1 -t 01:00:00 -A YOUR_ALLOCATION -r RESERVATION_NAME
 ```
+
+> **No reservation?** If you weren't given one, just leave the `-r RESERVATION_NAME` off the end and run the rest of the command as-is.
 
 | Flag | Meaning |
 |------|---------|
